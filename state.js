@@ -1,6 +1,10 @@
 function resetGameState(gameState) {
-    gameState.points = 0
+    gameState.alive = true
+    gameState.score = 0
     gameState.cost_multiplier = 1
+    gameState.click_value = 1
+    gameState.fish_value = 10
+    gameState.fish_time = 12000
     gameState.activeUpgrades = []
 }
 

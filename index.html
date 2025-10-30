@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <title>Clickguin</title>
+</head>
+
+<body>
+
+    <!-- Painel Esquerdo -->
+    <div class="left-panel">
+        <div class="upgrades">
+            <h3>Upgrades</h3>
+            <input type="text" value="Uptade 1">
+            <input type="text" value="Uptade 2">
+            <input type="text" value="Uptade 3">
+            <input type="text" value="Uptade 4">
+            <input type="text" value="Uptade 5">
+            <input type="text" value="Uptade 6">
+        </div>
+        <div class="explanation" id="explicacao">
+            *Explicação do uptade selecionado*<br>
+            Lalalalalalalalala
+        </div>
+    </div>
+
+    <!-- Centro -->
+    <div class="center">
+        <img src="img/pinguim.png" id="penguin" alt="Pinguim">
+        <img src="img/coração.png" id="heart" alt="Coração">
+    </div>
+
+
+    <!-- Painel Direito -->
+    <div class="right-panel">
+        <div class="score-box">
+            <h3>PONTUAÇÃO</h3>
+            <span id="pontos">0</span>
+        </div>
+
+        <div class="vitals">
+            <img src="img/coração.png" width="100%">
+            <div class="vital-bar" id="vida"></div>
+        </div>
+
+        <!-- <button class="reset" onclick="resetar()">Reset</button> -->
+        <button id="clicker">CLICK</button>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
