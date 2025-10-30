@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Teste Peixe</title>
+<style>
+  body {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+
+  .falling-image {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+    animation: fall 1s ease-out forwards;
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+</style>
+</head>
+<body>    
+</body>
+<script src="script.js"></script>
+</html>
