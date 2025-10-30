@@ -115,6 +115,7 @@ body {
     background: #4caf50;
     border-radius: 5px;
     margin-top: 8px;
+    transition: width 0.5s ease-in-out;
 }
 
 button {
@@ -132,9 +133,10 @@ button {
     text-shadow: 1px 1px 0 #000;
 }
 
-.reset {
+#reset {
     background: #9edff3;
     box-shadow: 4px 4px 0 #5aaac2;
+    display: none;
 }
 
 #clicker {
@@ -142,7 +144,7 @@ button {
     box-shadow: 4px 4px 0 #e57a7a;
 }
 
-.reset:hover {
+#reset:hover {
     background: #87d3ea;
 }
 

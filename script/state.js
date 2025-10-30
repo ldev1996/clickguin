@@ -1,6 +1,9 @@
 function resetGameState(gameState) {
     gameState.alive = true
+    gameState.max_life = 6,
+    gameState.life = 6,
     gameState.score = 0
+    gameState.maxScore = 0
     gameState.cost_multiplier = 1
     gameState.click_value = 1
     gameState.fish_value = 10
