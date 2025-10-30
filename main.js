@@ -53,6 +53,7 @@ function startDeathTimer() {
             clearInterval(deathTimer)
             kill(penguin, heart)
             toggleButtons(clicker, reset)
+            addToScoreList(gameState.maxScore)
         }
     }, 400)
 }
@@ -71,7 +72,6 @@ clicker.addEventListener('click', () => {
 
 reset.addEventListener('click', () => {
     if (!gameState.alive) {
-        addToScoreList(gameState.maxScore)
         revive(penguin, heart)
         resetGameState(gameState)
         renderLife(bar, gameState.life, gameState.maxLife)
