@@ -32,17 +32,27 @@ body {
     font-size: 20px;
 }
 
-.upgrades input {
+.upgrade {
     display: block;
     width: 90%;
     margin: 5px auto;
-    border: none;
+    border: 3px solid transparent;
     padding: 5px;
     border-radius: 5px;
-    text-align: center;
+    background-color: #bde7f6;
+    text-align: start;
 }
 
-.explanation {
+.upgrade.selected {
+    border-color: #3e4a5f;
+}
+
+.upgrade.bought {
+    background-color: #3e4a5f;
+    color: #fff6d6;
+}
+
+#explanation {
     background: #f9c5b3;
     border-radius: 15px;
     padding: 10px;

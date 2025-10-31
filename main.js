@@ -1,6 +1,7 @@
-import { resetGameState, addToScoreList, getScoreList } from './script/state.js'
+import { resetGameState, addToScoreList } from './script/state.js'
 import { formatGreatNumber, kill, revive, renderLife, toggleButtons, pulseElement } from './script/utils.js'
 import { spawnFish } from './script/fish.js'
+import { upgrades } from './script/upgrades.js'
 
 // ----------------------- estado do jogo
 const gameState = {
@@ -20,10 +21,25 @@ const gameState = {
             this.maxScore = this.score
         }
     },
-    addUpgrade: function (id) {
-        this.active_upgrades.push(id)
+    addUpgrade: function (upgrades, id) {
+        const upgrade = upgrades[id]
+        const finalCost = upgrade.cost * this.costMultiplier
+
+        if (this.score < finalCost) {
+            return
+        }
+
+        this.score -= finalCost
+
+        if (upgrade.unique) {
+            if (this.activeUpgrades.includes(id)) return
+            this.activeUpgrades.push(id)
+        }
+
+        upgrade.effect(this)
+        this.costMultiplier += 0.1
     },
-    active_upgrades: [], // ids dos upgrades,
+    activeUpgrades: [], // ids dos upgrades,
 }
 
 resetGameState(gameState)
@@ -35,16 +51,20 @@ const scoreDisplay = document.querySelector('#pontos')
 const bar = document.querySelector('#vida')
 const reset = document.querySelector('#reset')
 const clicker = document.querySelector('#clicker')
+const explanationBox = document.querySelector('#explanation')
+const upgradeContainer = document.querySelector('#upgrade-container')
 const centerDiv = document.querySelector('.center')
+
+const upgradeKeys = Object.keys(upgrades)
+let selectedIndex = 0
+
+let deathTimer
+let fishTimer
 
 // ----------------------- funções
 function renderScore() {
     scoreDisplay.innerText = formatGreatNumber(gameState.score)
 }
-
-// ----------------------- jogo
-let deathTimer
-let fishTimer
 
 function startDeathTimer() {
     // limpa qualquer timer antigo, só pra garantir
@@ -77,8 +97,28 @@ function startFishTimer() {
     }, gameState.fishTime)
 }
 
-// startDeathTimer()
-// startFishTimer()
+function renderUpgrades() {
+    upgradeContainer.innerHTML = ''
+    upgradeKeys.forEach((id, i) => {
+        const upgrade = upgrades[id]
+        const div = document.createElement('div')
+
+        div.classList.add('upgrade')
+        if (i === selectedIndex) div.classList.add('selected')
+        if (gameState.activeUpgrades.includes(id)) div.classList.add('bought')
+
+        div.innerText = `[${(upgrade.cost * gameState.costMultiplier).toFixed(0)}] ${upgrade.displayName}`
+        upgradeContainer.appendChild(div)
+
+    })
+    const upgrade = upgrades[upgradeKeys[selectedIndex]]
+    explanationBox.innerText = upgrade.displayEffect
+}
+
+// ----------------------- jogo
+startDeathTimer()
+startFishTimer()
+renderUpgrades()
 
 clicker.addEventListener('click', () => {
     if (gameState.alive) {
@@ -98,5 +138,23 @@ reset.addEventListener('click', () => {
         renderScore()
         toggleButtons(clicker, reset)
         startDeathTimer()
+    }
+})
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') {
+        selectedIndex = (selectedIndex - 1 + upgradeKeys.length) % upgradeKeys.length
+        renderUpgrades()
+    }
+
+    if (e.key === 'ArrowDown') {
+        selectedIndex = (selectedIndex + 1) % upgradeKeys.length
+        renderUpgrades()
+    }
+
+    if (e.code === 'Space') {
+        const id = upgradeKeys[selectedIndex]
+        gameState.addUpgrade(upgrades, id)
+        renderUpgrades()
     }
 })
