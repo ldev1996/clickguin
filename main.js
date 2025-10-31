@@ -15,15 +15,16 @@ const gameState = {
     fishValue: 10,
     fishTime: 5000,
     gravitySeconds: 3,
+    activeUpgrades: [], // ids dos upgrades,
     addScore: function (amount) {
-        this.score += amount
+        this.score += Math.round(amount)
         if (this.score > this.maxScore) {
             this.maxScore = this.score
         }
     },
     addUpgrade: function (upgrades, id) {
         const upgrade = upgrades[id]
-        const finalCost = upgrade.cost * this.costMultiplier
+        const finalCost = Math.round(upgrade.cost * this.costMultiplier)
 
         if (this.score < finalCost) {
             return
@@ -39,7 +40,6 @@ const gameState = {
         upgrade.effect(this)
         this.costMultiplier += 0.1
     },
-    activeUpgrades: [], // ids dos upgrades,
 }
 
 resetGameState(gameState)
@@ -107,7 +107,8 @@ function renderUpgrades() {
         if (i === selectedIndex) div.classList.add('selected')
         if (gameState.activeUpgrades.includes(id)) div.classList.add('bought')
 
-        div.innerText = `[${(upgrade.cost * gameState.costMultiplier).toFixed(0)}] ${upgrade.displayName}`
+        const displayedCost = Math.round(upgrade.cost * gameState.costMultiplier)
+        div.innerText = `[${displayedCost}] ${upgrade.displayName}`
         upgradeContainer.appendChild(div)
 
     })

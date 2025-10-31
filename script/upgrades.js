@@ -16,7 +16,7 @@ const upgrades = {
         displayName: 'Pescaria',
         displayEffect: 'Peixes 30% mais frequentes',
         effect: (gameState) => {
-            gameState.fishTime -= (gameState.fishTime / 3) // -30% tempo
+            gameState.fishTime -= Math.round(gameState.fishTime / 3) // -30% tempo
         },
         cost: 200,
         unique: true
