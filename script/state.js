@@ -1,13 +1,18 @@
 function resetGameState(gameState) {
     gameState.alive = true
-    gameState.max_life = 6,
-    gameState.life = 6,
+    gameState.maxLife = 6
+    gameState.life = 6
+
     gameState.score = 0
     gameState.maxScore = 0
-    gameState.cost_multiplier = 1
-    gameState.click_value = 1
-    gameState.fish_value = 10
-    gameState.fish_time = 12000
+
+    gameState.costMultiplier = 1
+    gameState.clickValue = 1
+
+    gameState.fishValue = 10
+    gameState.fishTime = 5000
+    gameState.gravitySeconds = 3
+
     gameState.activeUpgrades = []
 }
 

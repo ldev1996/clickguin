@@ -54,9 +54,12 @@ body {
 
 /* Centro */
 .center {
+    width: 45%;
+    max-width: 700px;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 #penguin {
@@ -115,7 +118,7 @@ body {
     background: #4caf50;
     border-radius: 5px;
     margin-top: 8px;
-    transition: width 0.5s ease-in-out;
+    transition: width 0.2s ease-in-out;
 }
 
 button {
@@ -168,4 +171,32 @@ button {
 
 .pulse-once {
     animation: pulse-once 0.5s ease-in-out;
+}
+
+@keyframes fall {
+    0% {
+        top: 0;
+        opacity: 0.5;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 120vh;
+        opacity: 0.5;
+    }
+}
+
+.fish {
+    z-index: 15;
+    cursor: pointer;
+    position: absolute;
+    pointer-events: auto;
+    -webkit-user-drag: none;
 }

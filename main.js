@@ -1,6 +1,7 @@
 import { resetGameState, addToScoreList, getScoreList } from './script/state.js'
 import { pulseElement } from './script/animate.js'
 import { formatGreatNumber, kill, revive, renderLife, toggleButtons } from './script/utils.js'
+import { spawnFish } from './script/fish.js'
 
 // ----------------------- estado do jogo
 const gameState = {
@@ -9,16 +10,16 @@ const gameState = {
     life: 6,
     score: 0,          // Alterar quando ganhar ou gastar pontos
     maxScore: 0,
-    cost_multiplier: 1, // Multiplicar pelo preço na loja
-    click_value: 1,
-    fish_value: 10,
-    fish_time: 12000,
+    costMultiplier: 1, // Multiplicar pelo preço na loja
+    clickValue: 1,
+    fishValue: 10,
+    fishTime: 5000,
+    gravitySeconds: 3,
     addScore: function (amount) {
         this.score += amount
         if (this.score > this.maxScore) {
             this.maxScore = this.score
         }
-        console.log('hahha', this.maxScore)
     },
     addUpgrade: function (id) {
         this.active_upgrades.push(id)
@@ -35,9 +36,16 @@ const scoreDisplay = document.querySelector('#pontos')
 const bar = document.querySelector('#vida')
 const reset = document.querySelector('#reset')
 const clicker = document.querySelector('#clicker')
+const centerDiv = document.querySelector('.center')
+
+// ----------------------- funções
+function renderScore() {
+    scoreDisplay.innerText = formatGreatNumber(gameState.score)
+}
 
 // ----------------------- jogo
 let deathTimer
+let fishTimer
 
 function startDeathTimer() {
     // limpa qualquer timer antigo, só pra garantir
@@ -47,10 +55,11 @@ function startDeathTimer() {
         gameState.life -= 1
         console.log(gameState.life)
         renderLife(bar, gameState.life, gameState.maxLife)
-        
+
         if (gameState.life <= 0) {
             gameState.alive = false
             clearInterval(deathTimer)
+            clearInterval(fishTimer)
             kill(penguin, heart)
             toggleButtons(clicker, reset)
             addToScoreList(gameState.maxScore)
@@ -58,13 +67,25 @@ function startDeathTimer() {
     }, 400)
 }
 
+function startFishTimer() {
+    clearInterval(fishTimer)
+
+    fishTimer = setInterval(() => {
+        spawnFish(centerDiv, () => {
+            gameState.addScore(gameState.fishValue)
+            renderScore()
+        }, gameState.gravitySeconds)
+    }, gameState.fishTime)
+}
+
 startDeathTimer()
+startFishTimer()
 
 clicker.addEventListener('click', () => {
     if (gameState.alive) {
         pulseElement(heart)
-        gameState.addScore(gameState.click_value)
-        scoreDisplay.innerText = formatGreatNumber(gameState.score)
+        gameState.addScore(gameState.clickValue)
+        renderScore()
         gameState.life = gameState.maxLife
         renderLife(bar, gameState.life, gameState.maxLife)
     }
@@ -75,7 +96,7 @@ reset.addEventListener('click', () => {
         revive(penguin, heart)
         resetGameState(gameState)
         renderLife(bar, gameState.life, gameState.maxLife)
-        scoreDisplay.innerText = formatGreatNumber(gameState.score)
+        renderScore()
         toggleButtons(clicker, reset)
         startDeathTimer()
     }

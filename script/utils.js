@@ -36,3 +36,16 @@ function toggleButtons(button1, button2) {
 
 
 export { formatGreatNumber, kill, revive, renderLife, toggleButtons }
+
+// function formatNumber(num, decimals = 1) {
+//   const abbrev = ["", "K", "M", "B", "T", "Q"];
+//   const tier = Math.floor(Math.log10(Math.abs(num)) / 3);
+  
+//   if (tier === 0) return num.toString();
+
+//   const suffix = abbrev[tier];
+//   const scale = Math.pow(10, tier * 3);
+//   const scaled = num / scale;
+
+//   return scaled.toFixed(decimals).replace(/\.0+$/, "") + suffix;
+// }
