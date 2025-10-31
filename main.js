@@ -1,6 +1,5 @@
 import { resetGameState, addToScoreList, getScoreList } from './script/state.js'
-import { pulseElement } from './script/animate.js'
-import { formatGreatNumber, kill, revive, renderLife, toggleButtons } from './script/utils.js'
+import { formatGreatNumber, kill, revive, renderLife, toggleButtons, pulseElement } from './script/utils.js'
 import { spawnFish } from './script/fish.js'
 
 // ----------------------- estado do jogo
@@ -78,8 +77,8 @@ function startFishTimer() {
     }, gameState.fishTime)
 }
 
-startDeathTimer()
-startFishTimer()
+// startDeathTimer()
+// startFishTimer()
 
 clicker.addEventListener('click', () => {
     if (gameState.alive) {

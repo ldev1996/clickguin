@@ -34,8 +34,13 @@ function toggleButtons(button1, button2) {
     }
 }
 
+function pulseElement(element) {
+    element.classList.remove("pulse-once");
+    void element.offsetWidth;
+    element.classList.add("pulse-once");
+}
 
-export { formatGreatNumber, kill, revive, renderLife, toggleButtons }
+export { formatGreatNumber, kill, revive, renderLife, toggleButtons, pulseElement }
 
 // function formatNumber(num, decimals = 1) {
 //   const abbrev = ["", "K", "M", "B", "T", "Q"];
